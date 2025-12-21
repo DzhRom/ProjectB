@@ -5,7 +5,7 @@ public class ProjectB {
 
         UsersTable ut = new UsersTable();
         ut.queryUsers(ut.connect());
-       // User us =new User();
-       // ut.queryUsers(ut.connect());
+        User us =new User();
+        ut.queryUsers(ut.connect());
     }
 }
