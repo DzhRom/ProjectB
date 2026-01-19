@@ -7,6 +7,14 @@ public class Authorization {
     private int balance;
     private String password;
     private String name;
+    private int idUser;
+
+    public int getIdUser(){
+        return idUser;
+    }
+    public int getBalance(){
+        return balance;
+    }
 
 
     public void authorizationUser() throws SQLException {
@@ -29,8 +37,12 @@ public class Authorization {
             }
         } */
 
-       ResultSet rs = queryAuth(login, password);
+       ResultSet rs = queryAuth( login, password);
        while (rs.next()) {
+
+           this.idUser = rs.getInt("id");
+
+          // this.id_user = rs.getInt("id_user");
            this.name = rs.getString("firstname");
            this.balance = rs.getInt("balance");
        }
@@ -39,9 +51,9 @@ public class Authorization {
 
     }
 
-    public ResultSet queryAuth(String login, String password) throws SQLException {
+    public ResultSet queryAuth( String login, String password) throws SQLException {
 
-            PreparedStatement statement = connection.prepareStatement("select firstname, login, password, balance from users where login = ? and password = ?");
+            PreparedStatement statement = connection.prepareStatement("select id, firstname, login, password, balance from users where login = ? and password = ?");
             statement.setString(1, login);
             statement.setString(2, password);
             ResultSet result = statement.executeQuery();
