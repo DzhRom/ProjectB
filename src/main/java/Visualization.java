@@ -49,6 +49,23 @@ public class Visualization {
         ActionListener logInButtonListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+
+                Authorization auth = new Authorization();
+                try {
+                    auth.logInUser(loginField.getText(), passwordField.getText());
+                    if (auth.getName() != null) {
+                        UserWindows userWindows = new UserWindows("Привет " + auth.getName(),  auth.getBalance(), auth.getName());
+                        userWindows.setLabelUserName("Приветствую, " + auth.getName());
+                        frame.dispose();
+                    } else resultLLogInLabel.setText(auth.logInUser(loginField.getText(), passwordField.getText()));
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+
+
+                /**
                 Authorization auth = new Authorization();
                 try {
                     resultLLogInLabel.setText(auth.logInUser(loginField.getText(), passwordField.getText()));
@@ -66,6 +83,7 @@ public class Visualization {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
+                 */
             }
         };
 
