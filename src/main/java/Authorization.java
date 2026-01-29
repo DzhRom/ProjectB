@@ -7,8 +7,43 @@ public class Authorization {
     private int balance;
     private String password;
     private String name;
+    private int idUser;
+
+    public int getIdUser(){
+        return idUser;
+    }
+    public int getBalance(){
+        return balance;
+    }
+
+    public String getName(){
+        return name;
+    }
+
+    //Версия входа через фрейм
+    public String logInUser(String login, String password) throws SQLException {
+        this.login = login;
+        this.password = password;
+        ResultSet rs = queryAuth( login, password);
+        while (rs.next()) {
+
+            this.idUser = rs.getInt("id");
+
+            // this.id_user = rs.getInt("id_user");
+            this.name = rs.getString("firstname");
+            this.balance = rs.getInt("balance");
+        }
+        if (name==null){
+            return "Неверный логин или пароль";
+        }
+        //String res = "Добро пожаловать " + name + ",\n Ваш баланс равен " + balance;
+        String res = "Добро пожаловать " + name ;
+        return res;
+
+    }
 
 
+    //Версия для входа через командную строку
     public void authorizationUser() throws SQLException {
         this.login = inputLogin();
         this.password = inputPassword();
@@ -29,19 +64,24 @@ public class Authorization {
             }
         } */
 
-       ResultSet rs = queryAuth(login, password);
+       ResultSet rs = queryAuth( login, password);
        while (rs.next()) {
+
+           this.idUser = rs.getInt("id");
+
+          // this.id_user = rs.getInt("id_user");
            this.name = rs.getString("firstname");
            this.balance = rs.getInt("balance");
        }
 
         System.out.println("Добро пожаловать " + name + "\nВаш баланс равен " + balance);
 
+
     }
 
-    public ResultSet queryAuth(String login, String password) throws SQLException {
+    public ResultSet queryAuth( String login, String password) throws SQLException {
 
-            PreparedStatement statement = connection.prepareStatement("select firstname, login, password, balance from users where login = ? and password = ?");
+            PreparedStatement statement = connection.prepareStatement("select id, firstname, login, password, balance from users where login = ? and password = ?");
             statement.setString(1, login);
             statement.setString(2, password);
             ResultSet result = statement.executeQuery();

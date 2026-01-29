@@ -6,12 +6,14 @@ import java.sql.*;
 @Entity
 public class UsersTable {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private final String URL = "jdbc:postgresql://localhost/ProjectB";
     private final String USER = "postgres";
     private final String PASSWORD = "170872";
+
 
     public Connection connect() {
         Connection conn = null;
@@ -69,6 +71,19 @@ public class UsersTable {
                 }
                 return count;
             }
+        }
+    }
+
+    public void updateBalance(int idUser, int balance) throws SQLException {
+
+
+        try (
+                Connection conn = connect();
+                PreparedStatement ps = conn.prepareStatement("UPDATE users SET balance = ? WHERE id = ?");
+                ) {
+            ps.setInt(1, balance);
+            ps.setInt(2, idUser);
+            int affectedRows = ps.executeUpdate();
         }
     }
 }
