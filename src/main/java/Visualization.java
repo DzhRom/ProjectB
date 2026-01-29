@@ -1,24 +1,13 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
-import java.awt.*;
+public class Visualization {
 
-
-public class ProjectB {
-    public static void main(String[] args) throws Exception {
-
-        /**
-
-        UsersTable ut = new UsersTable();
-        ut.queryUsers(ut.connect());
-        //User us =new User();
-        //ut.queryUsers(ut.connect());
-        Authorization auth = new Authorization();
-        auth.authorizationUser();
-        Transactions trans = new Transactions(auth);
-        trans.checkIdUser();
-        trans.withdrawCash();
-        trans.depositCash();
-
+    public Visualization() {
         // Главное окно
+
         JFrame frame = new JFrame("Project B");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setBounds(100, 100, 600, 600);
@@ -63,7 +52,7 @@ public class ProjectB {
                 Authorization auth = new Authorization();
                 try {
                     resultLLogInLabel.setText(auth.logInUser(loginField.getText(), passwordField.getText()));
-                    if (auth.getName() != null){
+                    if (auth.getName() != null) {
                         JFrame frameAuth = new JFrame(auth.getName());
                         frameAuth.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         frameAuth.setBounds(100, 100, 600, 600);
@@ -83,13 +72,6 @@ public class ProjectB {
         logInButton.addActionListener(logInButtonListener);
 
 
-
-
-
-
         frame.setVisible(true);
-*/
-
-        Visualization visualization = new Visualization();
     }
 }
